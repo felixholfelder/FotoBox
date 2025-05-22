@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="de">
+    <title>Fotobox 1.6.2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Livestream -->
+    <video id="video" autoplay></video>
+    <br>
+    <br>
+    <!-- Countdown-Anzeige -->
+    <div id="countdown" class="countdown"></div>
+
+    <!-- Unsichtbares Canvas-Element -->
+    <canvas id="canvas"></canvas>
+    
+    <!-- Vorschau des aufgenommenen Fotos -->
+    <h2 id="vorschau">V O R S C H A U</h2>
+    <img class="logo-lower l-left" src="../Medien/logo.png" alt="BSZ Logo">
+    <img id="photo" alt="Vorschau deines Fotos">
+    <img class="logo-lower l-right" src="../Medien/logo.png" alt="BSZ Logo">
+    <br>
+    
+    <br>
+    <!-- Zurück zum Livestream -->
+    <a href="#top"><button id="back">← ← ←  Zurück zur Kamera</button></a>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <!-- Buttons für Dev. und Debug. -->
+    <a class="hidden"><button id="snap">→ Foto aufnehmen ←</button></a>
+    <br>
+    <a href="#top" class="hidden"><button id="save">→ Foto speichern ←</button></a>
+
+    <!-- Hilfe für Backend -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+body
+{
+    text-align: center;
+    background-image: linear-gradient(to bottom right, lightblue, white);
+    margin: 0;
+    padding: 0;
+    cursor: none;
+}
+body::-webkit-scrollbar {
+    display: none; /* Versteckt die Scrollbar */
+}
+h2
+{
+    font-size: 1cm;
+    font-style: italic;
+}
+#canvas 
+{
+    display: none; /* Versteckt das Canvas-Element */
+}
+#video
+{
+    width: 100%;
+    height: auto;
+    border: 1px solid black;
+}
+#photo
+{
+    width: 57%;
+    height: auto;
+    border: 10px solid red;
+}
+button
+{
+    width: 100%;
+    height: 150px;
+    font-weight: bold;
+    font-size: 50px;
+    cursor: pointer; /* Handicon beim hovern */
+}
+
+/*Eigene Klassen*/
+.logo-upper
+{
+    width: 20%;
+    height: auto;
+    top: 250px;
+    position: absolute;
+}
+.logo-lower
+{
+    width: 20%;
+    height: auto;
+    top: 1900px;
+    position: absolute;
+}
+.l-left
+{
+    right: 10px;
+}
+.l-right
+{
+    left: 10px;
+}
+.hidden
+{
+    display: none;
+}
+.countdown
+{
+    position: absolute;
+    top: 400px;
+    z-index: 2;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 0.2em 0.5em; /* Vergrößert den Hintergrund */
+    border-radius: 0.5em; /* Rundet die Ecken ab */
+    text-align: center;
+    font-size: 4cm;
+    left: 50%;
+    display: none;
+}
