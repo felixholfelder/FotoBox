@@ -3,13 +3,14 @@ import websockets
 import RPi.GPIO as GPIO
 import time
 import subprocess
+from subprocess import Popen
 
 # GPIO-Nummerierung verwenden (BCM-Mode)
 GPIO.setmode(GPIO.BCM)
 
-# Pin-Nummern für die Buttons
-BUTTON1_PIN = 17  # Beispiel-Pin-Nummer für Button 1 (für 'c')
-BUTTON2_PIN = 27  # Beispiel-Pin-Nummer für Button 2 (für 's')
+# Pin-Nummern
+BUTTON1_PIN = 17  # Beispiel-Pin-Nummer für Button 1 ('c')
+BUTTON2_PIN = 27  # Beispiel-Pin-Nummer für Button 2 ('s')
 
 # Setup der GPIO-Pins als Eingänge mit Pull-Up-Widerständen
 GPIO.setup(BUTTON1_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -19,11 +20,11 @@ def print_image(image_path):
     """Funktion zum Drucken eines Bildes über den lp-Befehl."""
     try:
         subprocess.run(['lp', '-o', 'fit-to-page', image_path], check=True)
-        print(f"Druckauftrag erfolgreich gesendet für {image_path}.")
+        print(f"Druckauftrag erfolgreich gesendet fücccr {image_path}.")
     except subprocess.CalledProcessError as e:
         print(f"Fehler beim Drucken: {e}")
 
-async def send_key(websocket, path):
+async def send_key(websocket):
     print("Client connected")
     try:
         while True:
@@ -42,22 +43,20 @@ async def send_key(websocket, path):
                 print("Sent 's' key")
                 # Empfang des Dateipfads vom WebSocket-Client
                 file_name = await websocket.recv()
-                # Füge den Druckbefehl hinzu, wenn Button 2 gedrückt wird
-                #print_image("/home/admin/Documents/Medien/bsz-qr.png")
                 time.sleep(2)
                 print_image("/home/admin/Downloads/" + file_name)
-                #print_image("/home/admin/Documents/Medien/logo.png")
                 time.sleep(0.1)  # Debounce-Zeit
 
-            # Kurze Pause um CPU-Last zu reduzieren
-            time.sleep(0.1)
+            time.sleep(0.1)  # CPU-Last reduzieren
     except Exception as e:
         print(f"Exception: {e}")
     finally:
         print("Client disconnected")
 
-start_server = websockets.serve(send_key, "0.0.0.0", 8765)
+async def main():
+    p = Popen(['firefox', '/home/pi/fotobox/Code/Fotobox.html'])
+    print("Browser-App started!")
+    async with websockets.serve(send_key, "localhost", 8765):
+        await asyncio.Future()  # run forever
 
-asyncio.get_event_loop().run_until_complete(start_server)
-print("WebSocket server started on ws://0.0.0.0:8765")
-asyncio.get_event_loop().run_forever()
+asyncio.run(main())
